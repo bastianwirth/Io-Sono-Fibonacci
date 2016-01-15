@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MessageUI
 
-class SettingsTableViewController: UITableViewController {
+class SettingsTableViewController: UITableViewController, MFMailComposeViewControllerDelegate {
     @IBOutlet weak var playSoundSwitch: UISwitch!
     @IBOutlet weak var versionTableViewCell: UITableViewCell!
 
@@ -43,6 +44,35 @@ class SettingsTableViewController: UITableViewController {
         FibonacciUserDefaults.mostRights = 0
     }
     
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if tableView.cellForRowAtIndexPath(indexPath)?.tag == 5 {
+            // If the identifier is 5, it is the contact cell:
+            // Bring up the mail view controller:
+            if MFMailComposeViewController.canSendMail() {  // Checking if mail is available
+                let composeVC = MFMailComposeViewController()
+                composeVC.mailComposeDelegate = self
+                
+                // Configure the view controller:
+                composeVC.setToRecipients(["bastian.wirth@appsforx.com"])
+                composeVC.setSubject("Feedback to Io Sono Fibonacci")
+                composeVC.setMessageBody("My Feedback", isHTML: false)
+                
+                // Presenting the view controller:
+                self.presentViewController(composeVC, animated: true, completion: nil)
+                
+            }
+        }
+    }
+    
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        if result == MFMailComposeResultFailed {
+            print("Error sending mail.")
+        }
+        
+        // Dismiss the mail compose view controller
+        controller.dismissViewControllerAnimated(true, completion: nil)
+    }
     
 
 }
