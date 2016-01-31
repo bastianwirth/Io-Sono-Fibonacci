@@ -102,11 +102,15 @@ class QuizViewController: UIViewController, QuizDelegate {
     }
     
     internal func playerAnswersNo() {
-        self.quiz.playerAnswered(false)
+        if self.quiz.isPlaying == true {    // Check whether the game is running
+            self.quiz.playerAnswered(false)
+        }
     }
     
     internal func playerAnswersYes() {
-        self.quiz.playerAnswered(true)
+        if self.quiz.isPlaying == true {
+            self.quiz.playerAnswered(true)
+        }
     }
     
     internal func playerAnsweredRight(quiz: Quiz) {
