@@ -54,7 +54,7 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
                 composeVC.mailComposeDelegate = self
                 
                 // Configure the view controller:
-                composeVC.setToRecipients(["bastian.wirth@appsforx.com"])
+                composeVC.setToRecipients(["bastian.wirth@appsforx.de"])
                 composeVC.setSubject("Feedback to Io Sono Fibonacci")
                 composeVC.setMessageBody("My Feedback", isHTML: false)
                 
